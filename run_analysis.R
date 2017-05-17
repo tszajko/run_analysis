@@ -1,3 +1,8 @@
+###0.1 call packages
+
+library(dplyr)
+library(stringr)
+
 ###1.1 download and unzip dataset
 
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","C:/Users/tszajko003/Documents/rr/")
@@ -68,7 +73,7 @@ features_list <- rbind(features_mean,features_std)
 
 ###2.3 getting colnumbers for all mean/std cols and extracting cols from X_ to Selected_X
 features_col <- features_list[["V1"]]
-Selected_X <- X_.txt[,features_col]
+Selected_X <- a_X_.txt[,features_col]
 
 ##2.4 renaming cols in order to avoid duplications 
 a_subject_.txt <- rename(a_subject_.txt, SubjectiD = V1)
