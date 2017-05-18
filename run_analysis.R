@@ -68,7 +68,7 @@ setwd("~/run_analysis/UCI HAR Dataset/")
 features <- read.table(paste(getwd(),"/features.txt",sep=""))
 
 ###2.2 looking for cols that contain mean/std 
-features_mean <- features[grep("mean",features$V2),]
+features_mean <- features[grep("mean\\(\\)",features$V2),]
 features_std <- features[grep("std",features$V2),]
 features_list <- rbind(features_mean,features_std)
 
