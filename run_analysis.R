@@ -5,46 +5,47 @@ library(stringr)
 
 ###1.1 download and unzip dataset
 
-download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","C:/Users/tszajko003/Documents/rr/")
-unzip("C:/Users/tszajko003/Documents/rr/getdata%2Fprojectfiles%2FUCI HAR Dataset.zip")
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","~/run_analysis")
+setwd("~/run_analysis")
+unzip(as.character(paste(getwd(),"/getdata%2Fprojectfiles%2FUCI HAR Dataset.zip",sep="")))
 
 ###1.2 getting test files 
 
-setwd("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/test")
+setwd("~/run_analysis/UCI HAR Dataset/test")
 
 filenames <- list.files(pattern="*.txt")
 
 for (i in filenames) {
-  filepath <- file.path(paste("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/test/",i,sep=""))
+  filepath <- file.path(paste("~/run_analysis/UCI HAR Dataset/test/",i,sep=""))
   assign(i,read.table(filepath))
 }
 
-setwd("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/test/Inertial Signals")
+setwd("~/run_analysis/UCI HAR Dataset/test/Inertial Signals/")
 
 filenames <- list.files(pattern="*.txt")
 
 for (i in filenames) {
-  filepath <- file.path(paste("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/test/Inertial Signals/",i,sep=""))
+  filepath <- file.path(paste("~/run_analysis/UCI HAR Dataset/test/Inertial Signals/",i,sep=""))
   assign(i,read.table(filepath))
 }
 
 ###1.3 getting train files 
 
-setwd("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/train")
+setwd("~/run_analysis/UCI HAR Dataset/train/")
 
 filenames <- list.files(pattern="*.txt")
 
 for (i in filenames) {
-  filepath <- file.path(paste("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/train/",i,sep=""))
+  filepath <- file.path(paste("~/run_analysis/UCI HAR Dataset/train/",i,sep=""))
   assign(i,read.table(filepath))
 }
 
-setwd("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/train/Inertial Signals")
+setwd("~/run_analysis/UCI HAR Dataset/train/Inertial Signals/")
 
 filenames <- list.files(pattern="*.txt")
 
 for (i in filenames) {
-  filepath <- file.path(paste("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/train/Inertial Signals/",i,sep=""))
+  filepath <- file.path(paste("~/run_analysis/UCI HAR Dataset/train/Inertial Signals/",i,sep=""))
   assign(i,read.table(filepath))
 }
 
@@ -62,7 +63,7 @@ for (i in 1:12) {
 
 ###2.1 selecting mean an std_dv measurements 
 
-setwd("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/")
+setwd("~/run_analysis/UCI HAR Dataset/")
 
 features <- read.table(paste(getwd(),"/features.txt",sep=""))
 
@@ -83,7 +84,7 @@ a_y_.txt <- rename(a_y_.txt, ActivityID = V1)
 merged_data <- cbind(a_subject_.txt,a_y_.txt,Selected_X)
 
 ##3.1 getting and merging activity data 
-activity_table <- read.table("C:/Users/tszajko003/Documents/rr/UCI HAR Dataset/activity_labels.txt")
+activity_table <- read.table("~/run_analysis/UCI HAR Dataset/activity_labels.txt")
 activity_table <- rename(activity_table, ActivityName = V2)
 merged_data2 <- merge(merged_data,activity_table,by.x="ActivityID",by.y="V1")
 
@@ -92,5 +93,5 @@ newnames <- c("ActivityID","SubjectID",as.character(features_list$V2),"ActivityN
 oldnames <- names(merged_data2)
 names(merged_data2) <- str_replace(string=names(merged_data2),pattern=oldnames, replacement=newnames)
 
-##5.1 creating tidy data set
+##5.1 creating tidy data set  
 merged_data3 <- merged_data2 %>% group_by(ActivityID, SubjectID, ActivityName) %>% summarise_each(funs(mean))
