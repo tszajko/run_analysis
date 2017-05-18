@@ -95,3 +95,5 @@ names(merged_data2) <- str_replace(string=names(merged_data2),pattern=oldnames, 
 
 ##5.1 creating tidy data set  
 merged_data3 <- merged_data2 %>% group_by(ActivityID, SubjectID, ActivityName) %>% summarise_each(funs(mean))
+
+##script completed
